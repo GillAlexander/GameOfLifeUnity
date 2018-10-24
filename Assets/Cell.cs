@@ -5,7 +5,7 @@ using UnityEngine;
 public class Cell : MonoBehaviour {
 
     
-    public bool alive;
+    public bool alive = false;
     public int livingNeighbours = 0;
     // Use this for initialization
 
@@ -13,14 +13,11 @@ public class Cell : MonoBehaviour {
 		
 	}
 	
-    public void SetState()
-    {
-        if (alive)
-        {
+    public void SetState(){
+        if (alive){
             GetComponent<MeshRenderer>().enabled = true;
         }
-        else
-        {
+        else{
             GetComponent<MeshRenderer>().enabled = false;
         }
     }

@@ -10,9 +10,8 @@ public class GameOfLife : MonoBehaviour {
     public int livingNeighbours;
     public GameObject cellPrefab;
     public GameObject[ , ] cells;
-    int gridX = 15, gridY = 15;
-
-    //Hello unity
+    int gridX = 20, gridY = 20;
+    
     // Use this for initialization
     void Start () {
 
@@ -23,9 +22,9 @@ public class GameOfLife : MonoBehaviour {
             for (int y = 0; y < gridY; y++)
             {
                 Vector3 spawnOffset = new Vector3(x, 0, y);
-                cells[x , y] = Instantiate(cellPrefab, transform.position + spawnOffset, transform.rotation, transform);
+                cells[x, y] = Instantiate(cellPrefab, transform.position + spawnOffset, transform.rotation, transform);
 
-                if (Random.Range(0, 100) > 1)
+                if (Random.Range(0, 100) > 25)
                 {
                     cells[x, y].GetComponent<Cell>().SetState();
                 }
@@ -39,23 +38,28 @@ public class GameOfLife : MonoBehaviour {
 	void Update () {
 
         if (nextTick > tick){
+
             for (int x = 0; x < gridX; x++){
                 for (int y = 0; y < gridY; y++){
-                    Vector3 spawnOffset = new Vector3(x, 0, y);
-                    cells[x, y] = Instantiate(cellPrefab, transform.position + spawnOffset, transform.rotation, transform);
-
+                    
+                    if (cells[x, y].GetComponent<Cell>().alive)
+                    {
+                        
+                        Vector3 spawnOffset = new Vector3(x, 0, y);
+                        cells[x, y] = Instantiate(cellPrefab, transform.position + spawnOffset, transform.rotation, transform);
+                        //cells[x, y].GetComponent<Cell>().SetState();
+                    }
                 }
             }
             for (int x = 0; x < gridX; x++){
                 for (int y = 0; y < gridY; y++) {
-                    cells[x, y].GetComponent<Cell>().livingNeighbours = checkNeighbours(x, y);
+                    cells[x, y].GetComponent<Cell>().livingNeighbours = CheckNeighbours(x, y);
                 }
             }
-            for (int y = 0; y < 10; ++y)
-            {
-                for (int x = 0; x < 10; ++x)
-                {
+            for (int x = 0; x < gridX; x++){
+                for (int y = 0; y < gridY; y++){
                     cells[x , y].GetComponent<Cell>().alive = IsAlive(x, y);
+                    
                 }
             }
 
@@ -66,13 +70,14 @@ public class GameOfLife : MonoBehaviour {
         nextTick += Time.deltaTime;
     }  
 
-    int checkNeighbours(int x, int y){
+    int CheckNeighbours(int x, int y){
         int neighbours = 0;
-        for (int i = -1; i <= 1; i++) {       //Kollar ifall objektet är innanför skärmen på X axeln
+        for (int i = -1; i <= 1; i++) {     //Kollar ifall objektet är innanför skärmen på X axeln
             if (x + i >= 0 && x + i < gridX) {
-                for (int j = -1; j <= 1; j++){   //Kollar ifall objektet är innanför skärmen på Y axeln
+                for (int j = -1; j <= 1; j++){      //Kollar ifall objektet är innanför skärmen på Y axeln
                     if (y + j >= 0 && y + j < gridY){
-                        if (cells[x + i , y + j].GetComponent<Cell>().alive && !(i == 0 && j == 0)){//Ifall punkten är 0,0 i array. Bli falsk
+                        if (cells[x + i, y + j].GetComponent<Cell>().alive /*&& !(i == 0 && j == 0)*/)
+                        {    //Ifall punkten är 0,0 i array. Bli falsk
                             neighbours++;
                         }
                     }
@@ -82,13 +87,25 @@ public class GameOfLife : MonoBehaviour {
         return neighbours;
     }
 
-    public bool IsAlive(int x, int y)
-    {
-        if (cells[x , y].GetComponent<Cell>().livingNeighbours < 2)
+    public bool IsAlive(int x, int y){
+        //if (cells[x , y].GetComponent<Cell>().livingNeighbours < 2){
+        //    return false;
+        //}
+        //if (cells[x , y].GetComponent<Cell>().livingNeighbours > 3){
+        //    return false;
+        //}
+        //if (cells[x, y].GetComponent<Cell>().livingNeighbours == 0){
+        //    return true;
+        //}
+        ////Om cellen inte lever
+        //if (cells[x , y].GetComponent<Cell>().livingNeighbours == 3 && !cells[x , y].GetComponent<Cell>().alive){
+        //    return true;
+        //}
+        if (cells[x, y].GetComponent<Cell>().livingNeighbours < 2)
         {
             return false;
         }
-        if (cells[x , y].GetComponent<Cell>().livingNeighbours > 3)
+        if (cells[x, y].GetComponent<Cell>().livingNeighbours > 3)
         {
             return false;
         }
@@ -97,10 +114,35 @@ public class GameOfLife : MonoBehaviour {
             return true;
         }
         //Om cellen inte lever
-        if (cells[x , y].GetComponent<Cell>().livingNeighbours == 3 && !cells[x , y].GetComponent<Cell>().alive)
+        if (cells[x, y].GetComponent<Cell>().livingNeighbours == 3 && !cells[x, y].GetComponent<Cell>().alive)
         {
             return true;
         }
         return false;
     }
 }
+
+
+
+
+//int CheckNeighbours(int x, int y)
+//{
+//    int neighbours = 0;
+//    for (int i = -1; i <= 1; i++)
+//    {     //Kollar ifall objektet är innanför skärmen på X axeln
+//        if (x + i >= 0 && x + i < gridX)
+//        {
+//            for (int j = -1; j <= 1; j++)
+//            {      //Kollar ifall objektet är innanför skärmen på Y axeln
+//                if (y + j >= 0 && y + j < gridY)
+//                {
+//                    if (cells[x + i, y + j].GetComponent<Cell>().alive && !(i == 0 && j == 0))
+//                    {    //Ifall punkten är 0,0 i array. Bli falsk
+//                        neighbours++;
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    return neighbours;
+//}
