@@ -12,7 +12,7 @@ public class GameOfLife : MonoBehaviour {
     public GameObject[ , ] cells;
     int gridX = 10, gridY = 10;
 
-
+    //Hello unity
     // Use this for initialization
     void Start () {
 
