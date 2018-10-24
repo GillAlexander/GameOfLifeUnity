@@ -10,7 +10,7 @@ public class GameOfLife : MonoBehaviour {
     public int livingNeighbours;
     public GameObject cellPrefab;
     public GameObject[ , ] cells;
-    int gridX = 10, gridY = 10;
+    int gridX = 15, gridY = 15;
 
     //Hello unity
     // Use this for initialization
@@ -25,7 +25,7 @@ public class GameOfLife : MonoBehaviour {
                 Vector3 spawnOffset = new Vector3(x, 0, y);
                 cells[x , y] = Instantiate(cellPrefab, transform.position + spawnOffset, transform.rotation, transform);
 
-                if (Random.Range(0, 100) > 50)
+                if (Random.Range(0, 100) > 1)
                 {
                     cells[x, y].GetComponent<Cell>().SetState();
                 }
@@ -43,7 +43,6 @@ public class GameOfLife : MonoBehaviour {
                 for (int y = 0; y < gridY; y++){
                     Vector3 spawnOffset = new Vector3(x, 0, y);
                     cells[x, y] = Instantiate(cellPrefab, transform.position + spawnOffset, transform.rotation, transform);
-
 
                 }
             }
