@@ -10,7 +10,7 @@ public class GameOfLife : MonoBehaviour {
     public int livingNeighbours;
     public GameObject cellPrefab;
     public GameObject[ , ] cells;
-    int gridX, gridY = 10;
+    int gridX = 10, gridY = 10;
 
 
     // Use this for initialization
