@@ -16,9 +16,11 @@ public class Cell : MonoBehaviour {
     public void SetState(){
         if (alive){
             GetComponent<MeshRenderer>().enabled = true;
+            Debug.Log("ALIVE", gameObject);
         }
         else{
             GetComponent<MeshRenderer>().enabled = false;
+            Debug.Log("DEAD", gameObject);
         }
     }
 }

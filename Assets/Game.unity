@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 319117c14c5d08f40b70e544021bb0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tick: 0.75
+  tick: 0.1
   livingNeighbours: 0
   cellPrefab: {fileID: 1983790843491400, guid: f984d931ffd205747ba70a539e095ff3, type: 2}
 --- !u!4 &1109113796
